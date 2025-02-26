@@ -7,7 +7,7 @@ const HeroSection = () => {
       <p style={styles.heroSubtitle}>
         Rejoignez notre plateforme et commencez à publier vos blogs dès aujourdhui.
       </p>
-      <button style={styles.heroButton}>Commencer</button>
+      <button style={styles.heroButton}>Contactez Nous !!</button>
     </section>
   );
 };
