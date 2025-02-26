@@ -5,10 +5,11 @@ import Features from './components/Features';
 import Footer from './components/Footer';
 import './index.css';
 
-const App = () => {
+const App = () => {  
+
   return (
     <div>
-      <Header />
+      <Header  />
       <HeroSection />
       <Features />
       <Footer />
