@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = () => {
+const Header = ({setItemId}) => {
   return (
     <header style={styles.header}>
       <h1 style={styles.title}>Mon Blog Platform</h1>
