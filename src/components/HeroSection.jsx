@@ -34,7 +34,7 @@ const HeroSection = () => {
     <section style={styles.hero}>
       <h1 style={styles.heroTitle}>Partagez vos idées avec le monde</h1>
       <p style={styles.heroSubtitle}>
-        Rejoignez notre plateforme et commencez à publier vos blogs dès aujourd'hui.
+        Rejoignez notre plateforme et commencez à publier vos blogs dès aujourd hui.
       </p>
       <button style={styles.heroButton}>Commencer</button>
 

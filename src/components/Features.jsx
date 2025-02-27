@@ -13,7 +13,7 @@ const Features = () => {
   );
 };
 
-const FeatureCard = ({ icon, title, description }) => {
+const FeatureCard = ( icon , title, description ) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
