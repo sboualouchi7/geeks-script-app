@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import blog3Image from '../img/blog3.jpg';
-import blog4Image from '../img/blog4.jpg';
-import blog5Image from '../img/blog5.jpeg';
+// import React, { useState, useEffect } from 'react';
+// import blog3Image from '../img/blog3.jpg';
+// import blog4Image from '../img/blog4.jpg';
+// import blog5Image from '../img/blog5.jpeg';
 
 const HeroSection = () => {
   // Charger les "likes" depuis LocalStorage ou initialiser
-  const [blogs, setBlogs] = useState(() => {
-    const savedLikes = localStorage.getItem('likedBlogs');
-    return savedLikes
-      ? JSON.parse(savedLikes)
-      : [
-          { id: 1, title: 'Apprendre React', description: 'Découvrez les bases de React. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga laudantium velit harum nobis reprehenderit delectus, amet optio rem nulla adipisci consequatur ad veritatis ab. Voluptatum, facere. Soluta voluptatibus necessitatibus eos?',
-             image: blog5Image, liked: false },
-          { id: 2, title: 'La programmation Web', description: 'Les meilleures pratiques pour le web. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga laudantium velit harum nobis reprehenderit delectus, amet optio rem nulla adipisci consequatur ad veritatis ab. Voluptatum, facere. Soluta voluptatibus necessitatibus eos?', image: blog4Image, liked: false },
-          { id: 3, title: 'Les outils de développement', description: 'Les outils essentiels. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga laudantium velit harum nobis reprehenderit delectus, amet optio rem nulla adipisci consequatur ad veritatis ab. Voluptatum, facere. Soluta voluptatibus necessitatibus eos?', image: blog3Image, liked: false },
-        ];
+  // const [blogs, setBlogs] = useState(() => {
+  //   const savedLikes = localStorage.getItem('likedBlogs');
+  //   return savedLikes
+  //     ? JSON.parse(savedLikes)
+  //     : [
+  //         { id: 1, title: 'Apprendre React', description: 'Découvrez les bases de React. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga laudantium velit harum nobis reprehenderit delectus, amet optio rem nulla adipisci consequatur ad veritatis ab. Voluptatum, facere. Soluta voluptatibus necessitatibus eos?',
+  //            image: blog5Image, liked: false },
+  //         { id: 2, title: 'La programmation Web', description: 'Les meilleures pratiques pour le web. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga laudantium velit harum nobis reprehenderit delectus, amet optio rem nulla adipisci consequatur ad veritatis ab. Voluptatum, facere. Soluta voluptatibus necessitatibus eos?', image: blog4Image, liked: false },
+  //         { id: 3, title: 'Les outils de développement', description: 'Les outils essentiels. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga laudantium velit harum nobis reprehenderit delectus, amet optio rem nulla adipisci consequatur ad veritatis ab. Voluptatum, facere. Soluta voluptatibus necessitatibus eos?', image: blog3Image, liked: false },
+  //       ];
        
-  });
+  // });
 
   // Mettre à jour LocalStorage quand les "likes" changent
-  useEffect(() => {
-    localStorage.setItem('likedBlogs', JSON.stringify(blogs));
-  }, [blogs]);
+  // useEffect(() => {
+  //   localStorage.setItem('likedBlogs', JSON.stringify(blogs));
+  // }, [blogs]);
 
   // Fonction pour gérer le "J'aime"
-  const toggleLike = (id) => {
-    setBlogs(blogs.map(blog => 
-      blog.id === id ? { ...blog, liked: !blog.liked } : blog
-    ));
-  };
+  // const toggleLike = (id) => {
+  //   setBlogs(blogs.map(blog => 
+  //     blog.id === id ? { ...blog, liked: !blog.liked } : blog
+  //   ));
+  // };
 
   return (
     <section style={styles.hero}>
@@ -38,14 +38,13 @@ const HeroSection = () => {
       </p>
       <button style={styles.heroButton}>Commencer</button>
 
-      <div style={styles.blogContainer}>
+      {/* <div style={styles.blogContainer}>
         {blogs.map(blog => (
           <div key={blog.id} style={styles.blogCard}>
             <img src={blog.image} alt={blog.title} style={styles.blogImage} />
             <h2 style={styles.blogTitle}>{blog.title}</h2>
             <p style={styles.blogDescription}>{blog.description}</p>
             
-            {/* Bouton J'aime avec animation */}
             <button 
               onClick={() => toggleLike(blog.id)}
               className={`like-button ${blog.liked ? 'liked' : ''}`}
@@ -62,7 +61,7 @@ const HeroSection = () => {
             </button>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* Ajout des styles d'animation dans une balise <style> */}
       <style>
