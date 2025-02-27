@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Header = () => {
+  const [isTransparent, setIsTransparent] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsTransparent(true);
+      } else {
+        setIsTransparent(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header style={styles.header}>
-      {/* Logo */}
-      <div style={styles.logoContainer}>
-        <img
-          src="https://via.placeholder.com/50" // Remplacez par l'URL de votre logo
-          alt="Geeks-Script Logo"
-          style={styles.logo}
-        />
-        <h1 style={styles.title}>Geeks-Script</h1>
-      </div>
-
-      {/* Boutons */}
+    <header style={{ ...styles.header, backgroundColor: isTransparent ? 'rgba(26, 26, 26, 0.5)' : '#1a1a1a' }}>
+      <h1 style={styles.title}>Geeks-Script</h1>
       <div style={styles.buttonsContainer}>
         <button style={styles.button}>Login</button>
         <button style={{ ...styles.button, ...styles.primaryButton }}>
@@ -30,23 +34,13 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '20px 40px',
-    backgroundColor: '#1a1a1a',
+    padding: '12px 20px',
     color: 'white',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.6)',
     position: 'sticky',
     top: 0,
     zIndex: 1000,
-  },
-  logoContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-  },
-  logo: {
-    width: '50px',
-    height: '50px',
-    borderRadius: '50%', // Pour un logo rond
+    transition: 'background-color 0.3s ease-in-out',
   },
   title: {
     margin: '0',
@@ -75,30 +69,6 @@ const styles = {
     backgroundColor: '#ff7e5f',
     border: 'none',
   },
-  buttonHover: {
-    backgroundColor: '#ff7e5f',
-    color: 'white',
-  },
 };
-
-// Ajout d'un effet hover dynamique (optionnel)
-const addHoverEffect = () => {
-  const buttons = document.querySelectorAll('button');
-  buttons.forEach((button) => {
-    button.addEventListener('mouseenter', () => {
-      button.style.backgroundColor = '#ff7e5f';
-      button.style.color = 'white';
-    });
-    button.addEventListener('mouseleave', () => {
-      if (!button.classList.contains('primaryButton')) {
-        button.style.backgroundColor = 'transparent';
-        button.style.color = 'white';
-      }
-    });
-  });
-};
-
-// Appliquer l'effet hover après le rendu du composant
-setTimeout(addHoverEffect, 0);
 
 export default Header;

@@ -2,8 +2,7 @@
   "name": "geeks-script1",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://yourusername.github.io/my-app"
-,
+  "homepage": "https://yourusername.github.io/my-app",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,9 +10,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
- "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "framer-motion": "^12.4.7",
     "gh-pages": "^6.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
