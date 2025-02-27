@@ -4,31 +4,47 @@ import blog4Image from '../img/blog4.jpg';
 import blog5Image from '../img/blog5.jpeg';
 
 const HeroSection = () => {
-  // Charger les "likes" depuis LocalStorage ou initialiser
-  const [blogs, setBlogs] = useState(() => {
-    const savedLikes = localStorage.getItem('likedBlogs');
-    return savedLikes
-      ? JSON.parse(savedLikes)
-      : [
-          { id: 1, title: 'Apprendre React', description: 'Découvrez les bases de React. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga laudantium velit harum nobis reprehenderit delectus, amet optio rem nulla adipisci consequatur ad veritatis ab. Voluptatum, facere. Soluta voluptatibus necessitatibus eos?',
-             image: blog5Image, liked: false },
-          { id: 2, title: 'La programmation Web', description: 'Les meilleures pratiques pour le web. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga laudantium velit harum nobis reprehenderit delectus, amet optio rem nulla adipisci consequatur ad veritatis ab. Voluptatum, facere. Soluta voluptatibus necessitatibus eos?', image: blog4Image, liked: false },
-          { id: 3, title: 'Les outils de développement', description: 'Les outils essentiels. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga laudantium velit harum nobis reprehenderit delectus, amet optio rem nulla adipisci consequatur ad veritatis ab. Voluptatum, facere. Soluta voluptatibus necessitatibus eos?', image: blog3Image, liked: false },
-        ];
-       
-  });
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Mettre à jour LocalStorage quand les "likes" changent
+  // Tableau d'images importées
+  const blogImages = [blog5Image, blog4Image, blog3Image];
+
   useEffect(() => {
-    localStorage.setItem('likedBlogs', JSON.stringify(blogs));
-  }, [blogs]);
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/blogs');
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Données reçues:', data);
+        setBlogs(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des blogs:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Fonction pour gérer le "J'aime"
+    fetchBlogs();
+  }, []);
+
   const toggleLike = (id) => {
-    setBlogs(blogs.map(blog => 
+    setBlogs(blogs.map(blog =>
       blog.id === id ? { ...blog, liked: !blog.liked } : blog
     ));
   };
+
+  if (loading) {
+    return <div style={styles.loading}>Chargement en cours...</div>;
+  }
+
+  if (error) {
+    return <div style={styles.error}>Erreur : {error}</div>;
+  }
 
   return (
     <section style={styles.hero}>
@@ -39,24 +55,17 @@ const HeroSection = () => {
       <button style={styles.heroButton}>Commencer</button>
 
       <div style={styles.blogContainer}>
-        {blogs.map(blog => (
+        {blogs.map((blog, index) => (
           <div key={blog.id} style={styles.blogCard}>
-            <img src={blog.image} alt={blog.title} style={styles.blogImage} />
-            <h2 style={styles.blogTitle}>{blog.title}</h2>
+            {/* Utilisez l'index pour sélectionner l'image correspondante */}
+            <img src={blogImages[index % blogImages.length]} alt={blog.titre} style={styles.blogImage} />
+            <h2 style={styles.blogTitle}>{blog.titre}</h2>
             <p style={styles.blogDescription}>{blog.description}</p>
-            
-            {/* Bouton J'aime avec animation */}
-            <button 
+
+            <button
               onClick={() => toggleLike(blog.id)}
               className={`like-button ${blog.liked ? 'liked' : ''}`}
-              style={{
-                fontSize: '2rem',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                outline: 'none',
-                transition: 'transform 0.2s ease-in-out',
-              }}
+              style={styles.likeButton}
             >
               {blog.liked ? '❤️' : '🤍'}
             </button>
@@ -64,7 +73,6 @@ const HeroSection = () => {
         ))}
       </div>
 
-      {/* Ajout des styles d'animation dans une balise <style> */}
       <style>
         {`
           .like-button.liked {
@@ -85,7 +93,6 @@ const HeroSection = () => {
   );
 };
 
-// Styles principaux
 const styles = {
   hero: {
     display: 'flex',
@@ -94,11 +101,10 @@ const styles = {
     justifyContent: 'center',
     height: '700px',
     background: 'linear-gradient(90deg,rgb(255, 158, 134), #feb47b)',
-
-    // backgroundColor: '#FFA500',
     color: 'white',
     textAlign: 'center',
     padding: '40px',
+    paddingTop : '100px'
   },
   heroTitle: {
     fontSize: '3rem',
@@ -126,10 +132,10 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    paddingBottom:'60px'
   },
   blogCard: {
     backgroundColor: '#F2D2BD',
-    // background: 'linear-gradient(90deg,rgb(250, 197, 164), #feb47b)',
     color: '#333333',
     padding: '20px',
     margin: '15px',
@@ -140,22 +146,46 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    minHeight: '400px', // Hauteur minimale pour éviter les chevauchements
   },
   blogImage: {
     width: '100%',
-    height: '200px',
-    objectFit: 'cover',
+    height: '200px', // Taille fixe pour l'image
+    objectFit: 'cover', // Pour que l'image couvre la zone sans déformation
     borderRadius: '8px',
-    marginBottom: '15px',
+    marginBottom: '15px', // Espace entre l'image et le titre
   },
   blogTitle: {
     fontSize: '1.8rem',
-    margin: '0',
+    margin: '0 0 10px 0', // Espace sous le titre
     fontWeight: 'bold',
+    textAlign: 'center', // Centrer le titre
   },
   blogDescription: {
     fontSize: '1rem',
     color: '#555',
+    textAlign: 'center', // Centrer la description
+    flexGrow: 1, // Pour que la description prenne l'espace disponible
+  },
+  likeButton: {
+    fontSize: '2rem',
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    outline: 'none',
+    transition: 'transform 0.2s ease-in-out',
+    marginTop: '10px', // Espace au-dessus du bouton
+  },
+  loading: {
+    fontSize: '1.5rem',
+    textAlign: 'center',
+    marginTop: '50px',
+  },
+  error: {
+    fontSize: '1.5rem',
+    textAlign: 'center',
+    marginTop: '50px',
+    color: 'red',
   },
 };
 
