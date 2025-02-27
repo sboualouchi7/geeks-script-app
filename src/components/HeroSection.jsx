@@ -93,7 +93,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     height: '700px',
-    background: 'linear-gradient(90deg, #ff7e5f, #feb47b)',
+    background: 'linear-gradient(90deg,rgb(255, 158, 134), #feb47b)',
 
     // backgroundColor: '#FFA500',
     color: 'white',
@@ -128,7 +128,7 @@ const styles = {
     justifyContent: 'center',
   },
   blogCard: {
-    backgroundColor: '#feb47b',
+    backgroundColor: '#F2D2BD',
     // background: 'linear-gradient(90deg,rgb(250, 197, 164), #feb47b)',
     color: '#333333',
     padding: '20px',
