@@ -1,6 +1,7 @@
 import React from 'react';
 
-const header = () => {
+const Header = () => {
+
   return (
     <header style={styles.header}>
       {/* Logo */}
@@ -100,4 +101,4 @@ const addHoverEffect = () => {
 // Appliquer l'effet hover après le rendu du composant
 setTimeout(addHoverEffect, 0);
 
-export default header;
+export default Header;
